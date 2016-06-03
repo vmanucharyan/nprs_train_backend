@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  char: MyString
+  cser_light_features: 
+  cser_heavy_features: 
+  source_image_id: 
+
+two:
+  char: MyString
+  cser_light_features: 
+  cser_heavy_features: 
+  source_image_id: 
