@@ -1,14 +1,14 @@
 # config valid only for current version of Capistrano
 lock '3.5.0'
 
-set :application, 'nprs_train'
-set :repo_url, 'git@github.com:vmanucharyan/nprs_train.git'
+set :application, 'nprs_train_backend'
+set :repo_url, 'git@github.com:vmanucharyan/nprs_train_backend.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, '/var/www/my_app_name'
+set :deploy_to, '/home/deploy/nprs_train_backend'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -34,6 +34,8 @@ set :repo_url, 'git@github.com:vmanucharyan/nprs_train.git'
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+set :rbenv_ruby, '2.3.1'
 
 namespace :deploy do
 
