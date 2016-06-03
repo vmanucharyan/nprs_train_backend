@@ -65,3 +65,5 @@ gem 'grape-entity'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'delayed_paperclip'
+
+gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
