@@ -9,9 +9,9 @@ class ComputeTraceWorker
     Rails.logger.info("trace temp file path: #{tmp_name}")
     Rails.logger.info("picture path: #{img.picture.path}")
 
-    Rails.logger.info("running command: nprs-trace #{img.picture.path} #{tmp_name}")
-
-    `nprs-trace #{img.picture.path} #{tmp_name}`
+    cmd = "#{Rails.application.config.nprs_trace_path} #{img.picture.path} #{tmp_name}"
+    Rails.logger.info("running command: #{cmd}")
+    `#{cmd}`
     throw 'Failed to create trace' unless $?.success?
 
     img.update(trace: tmp_file)

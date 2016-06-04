@@ -47,12 +47,10 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger', '>= 0.1.1'
-
-  # Remove the following if your app does not use Rails
   gem 'capistrano-rails'
-
-  # Remove the following if your server does not use RVM
   gem 'capistrano-rbenv'
+  gem 'capistrano3-puma'
+  gem 'capistrano-sidekiq'
 end
 
 gem 'react-rails'
@@ -64,5 +62,4 @@ gem 'grape-entity'
 gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'delayed_paperclip'
-
-gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
+gem 'puma'
