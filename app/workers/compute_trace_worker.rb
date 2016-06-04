@@ -3,14 +3,19 @@ class ComputeTraceWorker
   def perform(image_id)
     img = SourceImage.find(image_id)
 
-    tmp_name = Dir::Tmpname.create(['trace']) { }
+    tmp_file = Tempfile.new("trace_#{img.id}");
+    tmp_name = tmp_file.path
+
+    Rails.logger.info("trace temp file path: #{tmp_name}")
+    Rails.logger.info("picture path: #{img.picture.path}")
 
     Rails.logger.info("running command: nprs-trace #{img.picture.path} #{tmp_name}")
 
     `nprs-trace #{img.picture.path} #{tmp_name}`
     throw 'Failed to create trace' unless $?.success?
 
-    trace_file = File::new(tmp_name)
-    img.update(trace: trace_file)
+    img.update(trace: tmp_file)
+
+    tmp_file.unlink
   end
 end
