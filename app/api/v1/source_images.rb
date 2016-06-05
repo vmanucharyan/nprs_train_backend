@@ -1,5 +1,4 @@
 class V1::SourceImages < Grape::API
-
   resource :source_images do
 
     desc 'unprocessed images'

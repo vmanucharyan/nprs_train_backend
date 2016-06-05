@@ -63,3 +63,5 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem 'delayed_paperclip'
 gem 'puma'
+gem 'devise'
+gem 'materialize-sass'
