@@ -18,6 +18,6 @@ production:
   adapter: postgresql
   encoding: unicode
   database: nprs_train_production
-  pool: 5
+  pool: 25
   username: <%= ENV['PG_USERNAME'] %>
   password: <%= ENV['PG_PASSWORD'] %>
