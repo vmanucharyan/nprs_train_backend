@@ -77,22 +77,27 @@ class V1::SourceImages < Grape::API
         requires :lock_id, type: String
       end
       post :symbol_samples do
-        Rails.logger.debug(params)
-
         source_image_id = params[:id]
         img = SourceImage.find(source_image_id)
 
         new_samples = params[:samples].map do |sample|
           bounds = sample[:bounds]
-          SymbolSample.new(
+          new_sample = SymbolSample.new(
             source_image_id: source_image_id,
-            cser_light_features: params[:cser_light_features],
-            threshold: params[:thres],
+            threshold: sample[:thres],
             x: bounds[:x],
             y: bounds[:y],
             width: bounds[:width],
-            height: bounds[:height]
+            height: bounds[:height],
+            char: sample[:symbol]
           );
+          if sample.has_key?(:cser_light_features)
+            new_sample.cser_light_features = (sample[:cser_light_features]).to_json
+          end
+          if sample.has_key?(:cser_heavy_features)
+            new_sample.cser_heavy_features = (sample[:cser_heavy_features]).to_json
+          end
+          new_sample
         end
 
         begin

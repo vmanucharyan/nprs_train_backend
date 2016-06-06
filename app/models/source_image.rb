@@ -4,7 +4,7 @@ class SourceImage < ActiveRecord::Base
   include Paperclip::Glue
   include Grape::Entity::DSL
 
-  has_many :symbol_samples
+  has_many :symbol_samples, dependent: :destroy
 
   validate :lock_id_and_locked_at_must_be_present_if_locked
 
