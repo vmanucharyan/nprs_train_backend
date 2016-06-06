@@ -4,12 +4,9 @@ class V1::SourceImages < Grape::API
     desc 'unprocessed images'
     resource :unprocessed do
       get do
-        authenticate!
         present SourceImage.unprocessed.all
       end
-
       get :first do
-        authenticate!
         unprocessed = SourceImage.unprocessed
         if (unprocessed.count > 0)
           present SourceImage.unprocessed.first
@@ -17,33 +14,25 @@ class V1::SourceImages < Grape::API
           error!({ message: 'no unprocessed images found' }, 404)
         end
       end
-
     end
 
+    desc 'returns source image'
     params do
       requires :id, type: Integer, desc: 'source image id'
     end
     route_param :id do
-
-      desc 'get source image'
       get do
-        authenticate!
-
         img = SourceImage.find(params[:id])
         present img
       end
 
       desc 'returns source image\'s trace'
       get :trace do
-        authenticate!
-
         img = SourceImage.find(params[:id])
         { trace_url: img.trace.url }
       end
 
       get :trace_file do
-        authenticate!
-
         img = SourceImage.find(params[:id])
 
         content_type "application/octet-stream"
@@ -55,14 +44,12 @@ class V1::SourceImages < Grape::API
 
       desc 'get source image symbols'
       get :symbol_samples do
-        authenticate!
         img = SourceImage.find(params[:id])
         present img.symbol_samples
       end
 
       desc 'locks image for processing and returns lock id.'
       put :lock do
-        authenticate!
         img = SourceImage.find(params[:id])
         begin
           img.lock
@@ -90,7 +77,6 @@ class V1::SourceImages < Grape::API
         requires :lock_id, type: String
       end
       post :symbol_samples do
-        authenticate!
         Rails.logger.debug(params)
 
         source_image_id = params[:id]
@@ -127,7 +113,6 @@ class V1::SourceImages < Grape::API
 
     desc 'get source images'
     get do
-      authenticate!
       present SourceImage.all
     end
 
