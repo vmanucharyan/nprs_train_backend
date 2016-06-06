@@ -7,9 +7,9 @@ class V1::SourceImages < Grape::API
         present SourceImage.unprocessed.all
       end
       get :first do
-        unprocessed = SourceImage.unprocessed
-        if (unprocessed.count > 0)
-          present SourceImage.unprocessed.first
+        unprocessed = SourceImage.find_some_unprocessed
+        if unprocessed.present?
+          present unprocessed
         else
           error!({ message: 'no unprocessed images found' }, 404)
         end

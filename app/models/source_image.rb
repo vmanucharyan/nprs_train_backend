@@ -56,6 +56,21 @@ class SourceImage < ActiveRecord::Base
     )
   end
 
+  def self.find_some_unprocessed
+    lock_expired_first = SourceImage
+      .where(:locked => true, :processed => false)
+      .where("locked_at < ?", LOCK_DURATION_S.seconds.ago)
+      .first
+
+    if lock_expired_first
+      lock_expired_first.update(:locked => false, :locked_at => nil, :lock_id => nil)
+      lock_expired_first
+    else
+      SourceImage.unprocessed.first
+    end
+
+  end
+
   def add_samples_and_unlock(samples, lock_id)
     unless self.locked && self.lock_id == lock_id
       raise Errors::LockValidationFailed
