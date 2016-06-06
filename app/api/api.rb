@@ -11,10 +11,10 @@ class Api < Grape::API
     def authenticated?
       warden.authenticated?
     end
-  end
 
-  before do
-    error!("401 Unauthorized", 401) unless authenticated?
+    def authenticate!
+      error!("401 Unauthorized", 401) unless authenticated?
+    end
   end
 
   mount V1::Ping
