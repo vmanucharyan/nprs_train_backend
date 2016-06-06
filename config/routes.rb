@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Api => '/'
-  mount Sidekiq::Web => '/sidekiq'
+
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   get '/test_trace' => "test_trace#show"
 
