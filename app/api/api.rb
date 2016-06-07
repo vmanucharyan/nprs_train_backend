@@ -9,7 +9,17 @@ class Api < Grape::API
     end
 
     def authenticated?
-      warden.authenticated?
+      return true if warden.authenticated?
+
+      begin
+        http_auth = Base64.decode64(env['HTTP_AUTHORIZATION'].split(" ")[1])
+        up = http_auth.split(':')
+        email, pass = up[0], up[1]
+        user = User.find_by_email(email)
+        user && user.valid_password?(pass)
+      rescue
+        return false
+      end
     end
   end
 
