@@ -1,5 +1,6 @@
 class CropSymbolSampleWorker
   include Sidekiq::Worker
+
   def perform(symbol_id)
     symbol = SymbolSample.find(symbol_id)
     source_picture = symbol.source_image.picture

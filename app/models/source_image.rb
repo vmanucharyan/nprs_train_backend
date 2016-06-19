@@ -81,6 +81,17 @@ class SourceImage < ActiveRecord::Base
     end
   end
 
+  def parse_trace
+    z = Zlib::Inflate.new(-Zlib::MAX_WBITS)
+    buf = z.inflate(IO.read(self.trace.path))
+    z.close
+    JSON.parse(buf)
+  end
+
+  def collect_negative_samples
+
+  end
+
   private
     def compute_trace
       ComputeTraceWorker.perform_async(self.id)
