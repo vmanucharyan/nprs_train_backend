@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 
+Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_token]
+Sidekiq::Web.set :sessions, Rails.application.config.session_options
+
 Rails.application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
