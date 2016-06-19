@@ -23,6 +23,10 @@ class SymbolSample < ActiveRecord::Base
   scope :positive, -> { where is_negative: false }
   scope :negative, -> { where is_negative: true }
 
+  def self.collect_positive_dataset
+    SymbolSample.positive.where.not(cser_light_features: nil).pluck(:cser_light_features)
+  end
+
   entity do
     expose :id, if: lambda { |s, st| s.picture.present? && st[:fields].include?(:id) }
     expose :source_image_id, if: lambda { |s, st| s.picture.present? && st[:fields].include?(:source_image_id) }

@@ -27,5 +27,9 @@ module NprsTrain
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
     config.autoload_paths += Dir[Rails.root.join('app', 'workers', '*')]
     config.autoload_paths << Rails.root.join('lib')
+
+    config.collect_negative_samples_command =
+      ENV['NPRS_COLLECT_NEGATIVE_SAMPLES_COMMAND'] ||
+      "python #{Rails.root.join('tools/collect_negatives/nprs_collect_negatives.py')}"
   end
 end
