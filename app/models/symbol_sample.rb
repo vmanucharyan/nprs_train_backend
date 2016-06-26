@@ -4,7 +4,6 @@ class SymbolSample < ActiveRecord::Base
 
   belongs_to :source_image
 
-  validates :is_negative, presence: true
   validates :char, presence: true, if: 'is_positive?'
   validates :x, presence: true
   validates :y, presence: true
