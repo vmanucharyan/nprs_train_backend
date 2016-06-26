@@ -76,7 +76,7 @@ class SourceImage < ActiveRecord::Base
       raise Errors::LockValidationFailed
     end
     samples.map do |sample|
-      sample.save(sample)
+      sample.save!(sample)
       sample.id
     end
   end

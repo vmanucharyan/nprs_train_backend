@@ -89,7 +89,8 @@ class V1::SourceImages < Grape::API
             y: bounds[:y],
             width: bounds[:width],
             height: bounds[:height],
-            char: sample[:symbol]
+            char: sample[:symbol],
+            is_negative: false
           );
           if sample.has_key?(:cser_light_features)
             new_sample.cser_light_features = (sample[:cser_light_features]).to_json
